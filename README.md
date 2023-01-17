@@ -16,7 +16,7 @@ npm i @bit-about/native-portal
 
 - 100% **Idiomatic React** and 100% Typescript
 - Tiny & Efficient
-- Does not trigger unnecessary rerenderings
+- Does not trigger unnecessary renderings
 - **Just works** ™
 
 ## Usage
