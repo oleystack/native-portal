@@ -16,7 +16,7 @@ npm i @bit-about/native-portal
 
 - 100% **Idiomatic React** and 100% Typescript
 - Tiny & Efficient
-- No centralized portals provider
+- Does not trigger unnecessary rerenderings
 - **Just works** ™
 
 ## Usage
