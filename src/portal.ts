@@ -2,19 +2,17 @@ import React, { useReducer } from 'react'
 import { View, ViewProps } from 'react-native/types'
 import { createContext, useContextSelector } from './context'
 
-type Require<T, K extends keyof T> = {
-  [P in keyof Omit<T, K>]: T[P]
-} & { [P in K]-?: T[P] }
-
 const DEFAULT_PORTAL_NAME = 'default'
 
-interface GateProps<PortalName extends string> {
-  name?: PortalName
+interface WithPortalNameProps<PortalName> {
+  name: PortalName
+}
+
+interface GateProps {
   children: React.ReactNode
 }
 
-interface HostProps<PortalName> extends ViewProps {
-  name?: PortalName
+interface HostProps extends ViewProps {
   children?: React.ReactNode
 }
 
@@ -22,18 +20,19 @@ interface ProviderProps {
   children?: React.ReactNode
 }
 
-export function portal<PortalNames extends string>(
-  ...portals: PortalNames[]
+export function portal<PortalName extends string>(
+  portal: PortalName,
+  ...portals: Array<PortalName>
 ): {
   Provider: React.FC<ProviderProps>
-  Gate: React.FC<Require<GateProps<PortalNames>, 'name'>>
-  Host: React.FC<Require<HostProps<PortalNames>, 'name'>>
+  Gate: React.FC<GateProps & WithPortalNameProps<PortalName>>
+  Host: React.FC<HostProps & WithPortalNameProps<PortalName>>
 }
 
 export function portal(): {
   Provider: React.FC<ProviderProps>
-  Gate: React.FC<Omit<GateProps<never>, 'name'>>
-  Host: React.FC<Omit<HostProps<never>, 'name'>>
+  Gate: React.FC<GateProps>
+  Host: React.FC<HostProps>
 }
 
 export function portal(portals = [DEFAULT_PORTAL_NAME]) {
@@ -102,10 +101,9 @@ export function portal(portals = [DEFAULT_PORTAL_NAME]) {
     )
   }
 
-  const Gate: React.FC<GateProps<PortalName>> = ({
-    name = DEFAULT_PORTAL_NAME,
-    children
-  }) => {
+  const Gate: React.FC<
+    GateProps & Partial<WithPortalNameProps<PortalName>>
+  > = ({ name = DEFAULT_PORTAL_NAME, children }) => {
     const dispatch = useContextSelector(context, (state) => state.dispatch)
 
     React.useEffect(() => {
@@ -131,11 +129,9 @@ export function portal(portals = [DEFAULT_PORTAL_NAME]) {
     return null
   }
 
-  const Host: React.FC<HostProps<PortalName>> = ({
-    name = DEFAULT_PORTAL_NAME,
-    children,
-    ...props
-  }) => {
+  const Host: React.FC<
+    HostProps & Partial<WithPortalNameProps<PortalName>>
+  > = ({ name = DEFAULT_PORTAL_NAME, children, ...props }) => {
     const portal = useContextSelector(
       context,
       (state) => state.portals[name]?.[0]
