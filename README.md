@@ -131,8 +131,8 @@ Each host will display the same content.
 Nope! When you render Host it will be automatically filled up by the latest content.
 
 ##### Is this efficient? What about the re-renders?
-Yes. Moreover, Providers and Gates components will be never unecessary re-rendered.
-Gates rerender only when the latest content changes.
+Yes. Moreover, Providers and Gates will be never unecessary re-rendered.
+Gates rerender only when the latest injected content changes.
 
 ## Partners  
 <a href="https://www.wayfdigital.com/"><img alt="wayfdigital.com" width="100" height="100" src="https://user-images.githubusercontent.com/1496580/161037415-0503f763-a60b-4d40-af9f-95d1304fa486.png"/></a>
