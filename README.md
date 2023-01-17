@@ -14,11 +14,9 @@ npm i @bit-about/native-portal
 
 ## Features
 
-- 100% **Idiomatic React**
-- 100% Typescript with state types deduction
-- Efficient
+- 100% **Idiomatic React** and 100% Typescript
+- Tiny & Efficient
 - No centralized portals provider
-- Tiny
 - **Just works** ™
 
 ## Usage
