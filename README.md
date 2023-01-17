@@ -67,14 +67,14 @@ the `Hello!` sentence will be moved to the `ComponentA`.
 import { portal } from '@bit-about/native-portal'
 
 // Declare destinations during portal creation
-const Portal = portal('portalToHeader', 'portalToMenu', 'portalToHeaven')
+const Portal = portal('toHeader', 'toMenu', 'toHeaven')
 ```
 
 ⬜ Declare a Host using `name` prop
 ```tsx
 const Menu = () => (
   <>
-    <Portal.Host name="portalToMenu" />
+    <Portal.Host name="toMenu" />
   </>
 )
 ```
@@ -84,7 +84,7 @@ const Menu = () => (
 ```tsx
 const Screen = () => (
     <>
-      <Portal.Gate name="portalToMenu">
+      <Portal.Gate name="toMenu">
         <Text>{'New menu option'}</Text>
       </Portal.Gate>
     </>
@@ -96,7 +96,7 @@ const Screen = () => (
 To declare default content for unused portal you can just declare `children` for `Host`.
 
 ```tsx
-<Portal.Host name="portalToMenu">
+<Portal.Host name="toMenu">
   <Text>{'I`m only visible when there are no Gates rendered'}</Text>
 </Portal.Host>
 ```
