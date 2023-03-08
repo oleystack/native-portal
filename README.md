@@ -121,17 +121,17 @@ const App = () => (
 ```
 
 ## Common Questions
-##### What happens if I use multiple `Injectors` for one portal at the same time?
+##### ► What happens if I use multiple `Injectors` for one portal at the same time?
 It works like a stack. The `Target` will render the latest content. <br/>If the newest `Injector` is unmounted, the `Target` will render the previous one.
 
-##### What happens if I use multiple `Targets` for one portal at the same time?
+##### ► What happens if I use multiple `Targets` for one portal at the same time?
 Each `Target` will display the same content.
 
-##### Do I need to render `Target` before the `Injectors`?
+##### ► Do I need to render `Target` before the `Injectors`?
 Nope! <br/>
 When you render `Target` it will be automatically filled up by the injected content.
 
-##### Is this efficient? What about the re-renders?
+##### ► Is this efficient? What about the re-renders?
 Yes. <br/>
 Moreover, `Providers` and `Injectors` will be never unecessary re-rendered.<br/>
 `Target` rerender only when the latest injected content changes.
