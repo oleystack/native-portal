@@ -101,7 +101,7 @@ To declare default content for unused portal you can just declare `children` for
 </Portal.Host>
 ```
 
-## Don't you like components' names?
+## Don't you like defaults names?
 ```tsx
 import { portal } from '@bit-about/native-portal'
 
