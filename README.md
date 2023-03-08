@@ -121,18 +121,18 @@ const App = () => (
 ```
 
 ## Common Questions
-##### What happens if I use multiple gates for one portal at the same time?
-It works like a stack. The Host will render the latest content. If the latest Gate is removed from the tree, the host will render the previous one, etc.
+##### What happens if I use multiple `Injectors` for one portal at the same time?
+It works like a stack. The `Target` will render the latest content. If the newest `Injector` is unmounted, the `Target` will render the previous one.
 
-##### What happens if I use multiple hosts for one portal at the same time?
-Each host will display the same content.
+##### What happens if I use multiple `Targets` for one portal at the same time?
+Each `Target` will display the same content.
 
-##### Do I need to render the Host before the Gate?
-Nope! When you render Host it will be automatically filled up by the latest content.
+##### Do I need to render `Target` before the `Injectors`?
+Nope! When you render `Target` it will be automatically filled up by the injected content.
 
 ##### Is this efficient? What about the re-renders?
-Yes. Moreover, Providers and Gates will be never unecessary re-rendered.
-Gates rerender only when the latest injected content changes.
+Yes. Moreover, `Providers` and `Injectors` will be never unecessary re-rendered.
+`Target` rerender only when the latest injected content changes.
 
 ## Partners  
 <a href="https://www.wayfdigital.com/"><img alt="wayfdigital.com" width="100" height="100" src="https://user-images.githubusercontent.com/1496580/161037415-0503f763-a60b-4d40-af9f-95d1304fa486.png"/></a>
