@@ -37,23 +37,23 @@ const App = () => (
 ```
 
 
-⬜ Declare a Host
+⬜ Set injection target
 ```tsx
 const ComponentA = () => (
   <>
-    <Portal.Host />
+    <Portal.Target />
   </>
 )
 ```
 
 
-🌀 ...and then declare a Gate
+🌀 ...then inject content from elsewhere
 ```tsx
 const ComponentB = () => (
   <>
-    <Portal.Gate>
+    <Portal.Injector>
       <Text>Hello!</Text>
-    </Portal.Gate>
+    </Portal.Injector>
   </>
 )
 ```
@@ -70,48 +70,48 @@ import { portal } from '@bit-about/native-portal'
 const Portal = portal('toHeader', 'toMenu', 'toHeaven')
 ```
 
-⬜ Declare a Host using `name` prop
+⬜ Set injection target using `name` prop
 ```tsx
 const Menu = () => (
   <>
-    <Portal.Host name="toMenu" />
+    <Portal.Target name="toMenu" />
   </>
 )
 ```
 
 
-🌀 ...and then declare a Gate using `name` prop
+🌀 ...then inject content using `name` prop
 ```tsx
 const Screen = () => (
     <>
-      <Portal.Gate name="toMenu">
+      <Portal.Injector name="toMenu">
         <Text>{'New menu option'}</Text>
-      </Portal.Gate>
+      </Portal.Injector>
     </>
   )
 ```
 
 
 ## Default content
-To declare default content for unused portal you can just declare `children` for `Host`.
+To declare fallback content for portal that is not in use, you can just pass `children` prop to `Target` component.
 
 ```tsx
-<Portal.Host name="toMenu">
-  <Text>{'I`m only visible when there are no Gates rendered'}</Text>
-</Portal.Host>
+<Portal.Target>
+  <Text>{'I am only visible when no content has been injected.'}</Text>
+</Portal.Target>
 ```
 
-## Don't you like defaults names?
+## Don't you like the default names?
 ```tsx
 import { portal } from '@bit-about/native-portal'
 
 const {
-  Provider: MyAmazingPortalProvider,
-  Host: MyAmazingPortalHost,
-  Gate: MyAmazingPortalGate,
+  Provider: MyAmazingProvider,
+  Target: MyAmazingTarget,
+  Injector: MyAmazingInjector,
 } = portal()
 
-// ... and then for example
+// ... and then
 
 const App = () => (
   <MyAmazingProvider>
