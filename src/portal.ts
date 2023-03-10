@@ -8,11 +8,11 @@ interface WithPortalNameProps<PortalName> {
   name: PortalName
 }
 
-interface GateProps {
+interface InjectorProps {
   children: React.ReactNode
 }
 
-interface HostProps extends ViewProps {
+interface TargetProps extends ViewProps {
   children?: React.ReactNode
 }
 
@@ -25,14 +25,14 @@ export function portal<PortalName extends string>(
   ...portals: Array<PortalName>
 ): {
   Provider: React.FC<ProviderProps>
-  Gate: React.FC<GateProps & WithPortalNameProps<PortalName>>
-  Host: React.FC<HostProps & WithPortalNameProps<PortalName>>
+  Injector: React.FC<InjectorProps & WithPortalNameProps<PortalName>>
+  Target: React.FC<TargetProps & WithPortalNameProps<PortalName>>
 }
 
 export function portal(): {
   Provider: React.FC<ProviderProps>
-  Gate: React.FC<GateProps>
-  Host: React.FC<HostProps>
+  Injector: React.FC<InjectorProps>
+  Target: React.FC<TargetProps>
 }
 
 export function portal(portals = [DEFAULT_PORTAL_NAME]) {
@@ -101,8 +101,8 @@ export function portal(portals = [DEFAULT_PORTAL_NAME]) {
     )
   }
 
-  const Gate: React.FC<
-    GateProps & Partial<WithPortalNameProps<PortalName>>
+  const Injector: React.FC<
+    InjectorProps & Partial<WithPortalNameProps<PortalName>>
   > = ({ name = DEFAULT_PORTAL_NAME, children }) => {
     const dispatch = useContextSelector(context, (state) => state.dispatch)
 
@@ -129,8 +129,8 @@ export function portal(portals = [DEFAULT_PORTAL_NAME]) {
     return null
   }
 
-  const Host: React.FC<
-    HostProps & Partial<WithPortalNameProps<PortalName>>
+  const Target: React.FC<
+    TargetProps & Partial<WithPortalNameProps<PortalName>>
   > = ({ name = DEFAULT_PORTAL_NAME, children, ...props }) => {
     const portal = useContextSelector(
       context,
@@ -141,8 +141,8 @@ export function portal(portals = [DEFAULT_PORTAL_NAME]) {
   }
 
   Provider.displayName = 'BitAboutNativePortal.Provider'
-  Gate.displayName = 'BitAboutNativePortal.Gate'
-  Host.displayName = 'BitAboutNativePortal.Host'
+  Injector.displayName = 'BitAboutNativePortal.Injector'
+  Target.displayName = 'BitAboutNativePortal.Target'
 
-  return { Provider, Gate, Host }
+  return { Provider, Injector, Target }
 }
