@@ -174,11 +174,11 @@ export function useContextSelector<Value, SelectedValue>(
         return [nextState, nextSelectedState] as const
       } catch (e) {
         // stale props or some other reason
-      }
 
-      /* istanbul ignore next */
-      if (isDev) {
-        console.warn('Library discovered stale props issue')
+        /* istanbul ignore next */
+        if (isDev) {
+          console.warn('Library discovered stale props issue')
+        }
       }
 
       // Edge Case - Force update (create new array with old values)
