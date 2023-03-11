@@ -18,7 +18,7 @@ export default defineConfig({
       // for UMD name: 'GlobalName'
     },
     rollupOptions: {
-      external: ['react-native/types', 'react']
+      external: ['react-native', 'react']
     },
     target: 'esnext',
     sourcemap: true
