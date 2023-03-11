@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react'
-import { View, ViewProps } from 'react-native/types'
-import { createContext, useContextSelector } from './context'
+import { View, ViewProps } from 'react-native'
+import { createContext, useContextSelector } from '@bit-about/context'
 
 const DEFAULT_PORTAL_NAME = 'default'
 
@@ -52,12 +52,10 @@ export function portal(portals = [DEFAULT_PORTAL_NAME]) {
     payload: PortalRecord
   }
 
-  type PortalState = {
-    portals: Portals<PortalName>
-    dispatch: React.Dispatch<DispatcherAction>
-  }
+  type PortalState = Portals<PortalName>
 
   const context = createContext<PortalState>({} as PortalState)
+  let globalDispatcher: React.Dispatch<DispatcherAction>;
 
   const Provider: React.FC<ProviderProps> = ({ children }) => {
     const [portals, dispatch] = useReducer(
@@ -94,9 +92,13 @@ export function portal(portals = [DEFAULT_PORTAL_NAME]) {
       {} as Portals<PortalName>
     )
 
+    if(!globalDispatcher) {
+      globalDispatcher = dispatch
+    }
+
     return React.createElement(
       context.Provider,
-      { value: { portals, dispatch } },
+      { value: portals },
       children
     )
   }
@@ -104,10 +106,9 @@ export function portal(portals = [DEFAULT_PORTAL_NAME]) {
   const Injector: React.FC<
     InjectorProps & Partial<WithPortalNameProps<PortalName>>
   > = ({ name = DEFAULT_PORTAL_NAME, children }) => {
-    const dispatch = useContextSelector(context, (state) => state.dispatch)
 
     React.useEffect(() => {
-      dispatch({
+      globalDispatcher({
         type: 'add',
         payload: {
           name,
@@ -116,7 +117,7 @@ export function portal(portals = [DEFAULT_PORTAL_NAME]) {
       })
 
       return () => {
-        dispatch({
+        globalDispatcher({
           type: 'remove',
           payload: {
             name,
@@ -124,7 +125,7 @@ export function portal(portals = [DEFAULT_PORTAL_NAME]) {
           }
         })
       }
-    }, [name, children, dispatch])
+    }, [name, children])
 
     return null
   }
@@ -134,7 +135,7 @@ export function portal(portals = [DEFAULT_PORTAL_NAME]) {
   > = ({ name = DEFAULT_PORTAL_NAME, children, ...props }) => {
     const portal = useContextSelector(
       context,
-      (state) => state.portals[name]?.[0]
+      (state) => state[name]?.[0]
     )
 
     return React.createElement(View, props, portal ?? children)

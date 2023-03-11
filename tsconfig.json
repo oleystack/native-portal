@@ -6,7 +6,7 @@
     "importHelpers": true,
     "outDir": "dist",
     "strict": true,
-    "jsx": "preserve",
+    "jsx": "react",
     "allowJs": true,
     "sourceMap": true,
     "resolveJsonModule": true,
@@ -14,12 +14,10 @@
     "skipLibCheck": true,
     "types": [
       "node",
+      "jest",
       "vite/client"
     ],
     "lib": ["esnext", "dom"],
   },
-  "include": ["src"],
-  "exclude": [
-    "__tests__",
-  ],
+  "include": ["src", "__tests__"]
 }
